@@ -13,7 +13,18 @@ BannerWebpackPlugin.prototype.apply = function(compiler) {
         chunkKey.map((chunk, key) => {
             let distChunk = this.findAsset(compilation, chunk),
                 beforeContent = this.chunks[chunk].beforeContent || '',
-                afterContent = this.chunks[chunk].afterContent || '';
+                afterContent = this.chunks[chunk].afterContent || '',
+                removeBefore = this.chunks[chunk].removeBefore || '',
+                removeAfter = this.chunks[chunk].removeAfter || '';
+
+            let source = compilation.assets[distChunk].source();
+            source = (removeBefore) ? source.replace(new RegExp('^' + removeBefore), "") : source;
+            source = (removeAfter) ? source.replace(new RegExp(removeAfter + '$'), "") : source;
+
+            compilation.assets[distChunk].source = () => {
+                return source;
+            };
+
             compilation.assets[distChunk] = new ConcatSource(beforeContent, compilation.assets[distChunk], afterContent);
         });
         callback();

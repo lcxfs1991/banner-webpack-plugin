@@ -21,19 +21,41 @@ then, please use the same key for chunks in banner-webpack-plugin
 new BannerWebpackPlugin({
     chunks: {
         'libs/react': {
-            beforeContent: 'var React = ',
-            afterContent: '/** authored by heyli */'
+            beforeContent: 'var React = ',              
+            afterContent: ');/**heyman*/',              
+            removeBefore: "!",                           
+            removeAfter: "\\);"
         },
         'libs/react-dom': {
             beforeContent: 'var ReactDOM = ',
+            afterContent: ');/**heyman*/',
+            removeBefore: "!",
+            removeAfter: "\\);"
         }
     }
 })
 ```
 
+### Defailt of ```chunks``` key
+```
+* beforeContent
+    - [String] 
+    - append content before
+* afterContent
+    - [String] 
+    - append content after
+* removeBefore
+    - [String] 
+    - replace content before, this string will input in a Regex Object
+* removeAfter
+    - [String]
+    - replace content after, this string will input in a Regex Object
+
+```
+
 ### Result
 ```
-var React = /******/ (function(modules) { // webpackBootstrap
+var React = /******/ function(modules) { // webpackBootstrap
 	/** some code here */
-/******/ }) /** authored by heyli */;
+/******/ }); /** heyman */;
 ```

@@ -1,6 +1,6 @@
 {
   "name": "banner-webpack-plugin",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "append content before or after js bundle",
   "keywords": [
     "front-end",
