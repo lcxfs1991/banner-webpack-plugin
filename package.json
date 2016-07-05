@@ -1,0 +1,38 @@
+{
+  "name": "banner-webpack-plugin",
+  "version": "0.1",
+  "description": "append content before or after js bundle",
+  "keywords": [
+    "front-end",
+    "web",
+    "webpack",
+    "plugin",
+    "building tool"
+  ],
+  "homepage": "https://github.com/lcxfs1991/banner-webpack-plugin",
+  "bugs": {
+    "url": "https://github.com/lcxfs1991/banner-webpack-plugin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lcxfs1991/banner-webpack-plugin.git"
+  },
+  "author": "heyli",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.0.0",
+    "npm": ">=3.0.0"
+  }
+}
