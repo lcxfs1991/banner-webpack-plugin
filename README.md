@@ -19,3 +19,10 @@ new BannerWebpackPlugin({
     }
 })
 ```
+
+### Result
+```
+var React = /******/ (function(modules) { // webpackBootstrap
+	/** some code here */
+/******/ }) /** authored by heyli */;
+```
