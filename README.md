@@ -6,7 +6,7 @@ append content before or after js bundle
 
 
 ### Usage
-
+```
 new BannerWebpackPlugin({
     chunks: {
         'libs/react': {
@@ -18,3 +18,4 @@ new BannerWebpackPlugin({
         }
     }
 })
+```
