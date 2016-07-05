@@ -1,11 +1,11 @@
-* banner-webpack-plugin
+# banner-webpack-plugin
 
-*** Introduction
+### Introduction
 
 append content before or after js bundle
 
 
-*** Usage
+### Usage
 
 new BannerWebpackPlugin({
     chunks: {
