@@ -1,6 +1,11 @@
 "use strict";
 
-var ConcatSource = require("webpack-core/lib/ConcatSource");
+var ConcatSource;
+try {
+    ConcatSource = require("webpack-core/lib/ConcatSource");
+} catch(e) {
+    ConcatSource = require("webpack-sources").ConcatSource;
+}
 
 function BannerWebpackPlugin(options) {
     this.options = options || {};
