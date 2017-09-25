@@ -36,7 +36,7 @@ new BannerWebpackPlugin({
 })
 ```
 
-### Defailt of ```chunks``` key
+### Default of ```chunks``` key
 ```
 * beforeContent
     - [String] 
