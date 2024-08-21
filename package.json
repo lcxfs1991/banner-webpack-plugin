@@ -1,13 +1,14 @@
 {
-  "name": "banner-webpack-plugin",
-  "version": "0.5",
-  "description": "append content before or after js bundle",
+  "name": "banner-webpack-after-content",
+  "version": "1.0",
+  "description": "append content after js bundle",
   "keywords": [
     "front-end",
     "web",
     "webpack",
     "plugin",
-    "building tool"
+    "building tool",
+    "banner-webpack"
   ],
   "homepage": "https://github.com/imarksea/banner-webpack-plugin",
   "bugs": {
@@ -30,9 +31,5 @@
   "devDependencies": {
     
   },
-  "license": "MIT",
-  "engines": {
-    "node": ">=4.0.0",
-    "npm": ">=3.0.0"
-  }
+  "license": "MIT"
 }
