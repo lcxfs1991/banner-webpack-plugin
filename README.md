@@ -1,4 +1,4 @@
-# banner-webpack-plugin
+# banner-webpack-after-content
 
 ### Introduction
 
