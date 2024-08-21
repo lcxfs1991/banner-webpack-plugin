@@ -1,51 +1,45 @@
 "use strict";
 
-var ConcatSource;
-try {
-    ConcatSource = require("webpack-core/lib/ConcatSource");
-} catch(e) {
-    ConcatSource = require("webpack-sources").ConcatSource;
-}
+const { ConcatSource } = require("webpack-sources");
 
 function BannerWebpackPlugin(options) {
-    this.options = options || {};
-    this.chunks = this.options.chunks || {};
+  this.options = options || {};
+  this.chunks = this.options.chunks || {};
 }
- 
-BannerWebpackPlugin.prototype.apply = function(compiler) {
-    compiler.plugin("emit", (compilation, callback) => {
-        let chunkKey = Object.keys(this.chunks);
-        chunkKey.map((chunk, key) => {
-            let distChunk = this.findAsset(compilation, chunk),
-                beforeContent = this.chunks[chunk].beforeContent || '',
-                afterContent = this.chunks[chunk].afterContent || '',
-                removeBefore = this.chunks[chunk].removeBefore || '',
-                removeAfter = this.chunks[chunk].removeAfter || '';
 
-            let source = compilation.assets[distChunk].source();
-            source = (removeBefore) ? source.replace(new RegExp('^' + removeBefore), "") : source;
-            source = (removeAfter) ? source.replace(new RegExp(removeAfter + '$'), "") : source;
+BannerWebpackPlugin.prototype.apply = function (compiler) {
+  compiler.hooks.compilation.tap("BannerWebpackPlugin", (compilation) => {
+    compilation.hooks.processAssets.tap(
+      {
+        name: "BannerWebpackPlugin",
+        stage: compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
+      },
+      (assets) => {
+        const chunkKeys = Object.keys(this.chunks);
 
-            compilation.assets[distChunk].source = () => {
-                return source;
-            };
+        chunkKeys.forEach((chunk) => {
+          const distChunk = this.findAsset(compilation, chunk);
 
-            compilation.assets[distChunk] = new ConcatSource(beforeContent, compilation.assets[distChunk], afterContent);
+          const { afterContent = "" } = this.chunks[chunk];
+
+          const originalSource = assets[distChunk].source();
+
+          const updatedSource = new ConcatSource(originalSource, afterContent);
+
+          compilation.updateAsset(distChunk, updatedSource);
         });
-        callback();
-    });
-
+      }
+    );
+  });
 };
 
-BannerWebpackPlugin.prototype.findAsset = function(compilation, chunk) {
-    let chunks = compilation.chunks;
-    for (let i = 0, len = chunks.length; i < len; i++) {
-        if (chunks[i].name === chunk) {
-            return chunks[i].files[0];
-        }
+BannerWebpackPlugin.prototype.findAsset = function (compilation, chunk) {
+  for (const chunkItem of compilation.chunks) {
+    if (chunkItem.name === chunk) {
+      return chunkItem.files.values().next().value;
     }
-
-    return null;
+  }
+  return null;
 };
 
 module.exports = BannerWebpackPlugin;
