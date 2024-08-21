@@ -1,4 +1,4 @@
-# banner-webpack-plugin
+# banner-webpack-after-content
 
 ### Introduction
 
@@ -7,11 +7,12 @@ append content before or after js bundle
 
 ### Usage
 if entry key in webpack config is like this:
+const jsDirectory = path.join(__dirname, "build-prod/static/js");
+const filename = main.js;
 ```
 entry: {
-    "libs/react": [path.join(config.path.src, "/libs/react.js")],
-    "libs/react-dom": [path.join(config.path.src, "/libs/react-dom.js")],
-},
+    "main": [path.join(jsDirectory, filename)],
+  },
 ```
 
 then, please use the same key for chunks in banner-webpack-plugin
@@ -19,21 +20,12 @@ then, please use the same key for chunks in banner-webpack-plugin
 
 ```
 new BannerWebpackPlugin({
-    chunks: {
-        'libs/react': {
-            beforeContent: 'var React = ',              
-            afterContent: ');/**heyman*/',              
-            removeBefore: "!",                           
-            removeAfter: "\\);"
+      chunks: {
+        "main": {
+          afterContent: `"/** Hello World */"`,
         },
-        'libs/react-dom': {
-            beforeContent: 'var ReactDOM = ',
-            afterContent: ');/**heyman*/',
-            removeBefore: "!",
-            removeAfter: "\\);"
-        }
-    }
-})
+      },
+    }),
 ```
 
 ### Default of ```chunks``` key
@@ -44,18 +36,11 @@ new BannerWebpackPlugin({
 * afterContent
     - [String] 
     - append content after
-* removeBefore
-    - [String] 
-    - replace content before, this string will input in a Regex Object
-* removeAfter
-    - [String]
-    - replace content after, this string will input in a Regex Object
-
 ```
 
 ### Result
 ```
 var React = /******/ function(modules) { // webpackBootstrap
 	/** some code here */
-/******/ }); /** heyman */;
+/******/ }); /** Hello World */;
 ```
